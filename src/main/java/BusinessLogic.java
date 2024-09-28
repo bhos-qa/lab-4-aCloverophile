@@ -1,9 +1,18 @@
 public class BusinessLogic {
 
     // Method 1: Calculate total payment with tax
+    // public double calculatePayment(double amount, double taxRate) {
+//        return amount + (amount * taxRate);
+//    }
+
     public double calculatePayment(double amount, double taxRate) {
-        return amount + (amount * taxRate);
+        double result = amount + (amount * taxRate);
+        // Round to 2 decimal places
+        return Math.round(result * 100.0) / 100.0;
     }
+
+
+
 
     // Method 2: Apply discount
     public double applyDiscount(double price, double discountPercentage) {
