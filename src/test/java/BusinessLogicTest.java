@@ -15,6 +15,12 @@ public class BusinessLogicTest {
         // assertEquals(120.5, logic.calculatePayment(110, 0.095), 0.0001);
     }
 
+    @Test
+    public void testCalculatePaymentWithNegativeValues() {
+        assertEquals(-110.0, logic.calculatePayment(-100, 0.1), 0.0001);  // Test negative value
+    }
+
+
     // Test for Method 2: applyDiscount
     @Test
     public void testApplyDiscount() {
@@ -23,6 +29,13 @@ public class BusinessLogicTest {
         assertEquals(0.0, logic.applyDiscount(100, 100));
         assertEquals(75.0, logic.applyDiscount(100, 25));
     }
+
+    @Test
+    public void testApplyDiscountWithNegativeAndHighValues() {
+        assertEquals(110.0, logic.applyDiscount(100, -10));  // Negative discount
+        assertEquals(-10.0, logic.applyDiscount(100, 110));  // Over 100% discount
+    }
+
 
     // Test for Method 3: isPrime
     @Test
@@ -36,6 +49,13 @@ public class BusinessLogicTest {
         assertTrue(logic.isPrime(2));    // Smallest prime number
     }
 
+    @Test
+    public void testIsPrimeWithLargeNumbers() {
+        assertFalse(logic.isPrime(1000000));  // Large non-prime
+        assertTrue(logic.isPrime(7919));  // Large prime
+    }
+
+
     // Test for Method 4: factorial
     @Test
     public void testFactorial() {
@@ -43,6 +63,14 @@ public class BusinessLogicTest {
         assertEquals(1, logic.factorial(0));  // Edge case
         assertEquals(1, logic.factorial(1));  // Edge case
         assertEquals(2, logic.factorial(2));
+    }
+
+    @Test
+    public void testFactorialWithNegativeValues() {
+        // For negative input, you can decide on behavior (return 1 or throw exception)
+        assertThrows(IllegalArgumentException.class, () -> {
+            logic.factorial(-5);
+        });
     }
 
     // Test for Method 5: findMax
@@ -60,6 +88,20 @@ public class BusinessLogicTest {
         int[] array4 = {-1000, 0, 999, 1000};
         assertEquals(1000, logic.findMax(array4));
     }
+
+    @Test
+    public void testFindMaxWithEmptyArray() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            logic.findMax(new int[]{});
+        });
+    }
+
+    @Test
+    public void testFindMaxWithSameValues() {
+        int[] array = {5, 5, 5};
+        assertEquals(5, logic.findMax(array));
+    }
+
 
     // Test for Method 6: concatenate
     @Test
@@ -81,6 +123,14 @@ public class BusinessLogicTest {
         assertFalse(logic.isValidEmail("user@.com"));
     }
 
+    @Test
+    public void testIsValidEmailWithEdgeCases() {
+        assertFalse(logic.isValidEmail("@example.com"));  // Starting with @
+        assertFalse(logic.isValidEmail("test@.com"));     // Dot after @
+        assertFalse(logic.isValidEmail("user@domain..com"));  // Double dot
+    }
+
+
     // Test for Method 8: areNumbersEqual
     @Test
     public void testAreNumbersEqual() {
@@ -99,6 +149,13 @@ public class BusinessLogicTest {
         assertEquals(104.0, logic.convertToFahrenheit(40));
     }
 
+    @Test
+    public void testConvertToFahrenheitWithExtremeValues() {
+        assertEquals(1832.0, logic.convertToFahrenheit(1000));  // Extremely high value
+        assertEquals(-459.67, logic.convertToFahrenheit(-273.15), 0.01);  // Absolute zero (special case)
+    }
+
+
     // Test for Method 10: reverseString
     @Test
     public void testReverseString() {
@@ -107,4 +164,16 @@ public class BusinessLogicTest {
         assertEquals("", logic.reverseString(""));
         assertEquals("a", logic.reverseString("a"));
     }
+
+    @Test
+    public void testReverseStringWithSpecialCharacters() {
+        assertEquals("!@#$", logic.reverseString("$#@!"));
+    }
+
+    @Test
+    public void testReverseStringWithLongString() {
+        String longString = "a".repeat(1000);
+        assertEquals(longString, logic.reverseString(longString));  // A repeated 1000 times
+    }
+
 }

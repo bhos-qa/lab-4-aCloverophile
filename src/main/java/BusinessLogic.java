@@ -37,15 +37,15 @@ public class BusinessLogic {
         return true;
     }
 
-
-    // Method 4: Calculate factorial
     public int factorial(int n) {
+        if (n < 0) throw new IllegalArgumentException("Negative numbers are not allowed");
         if (n == 0) return 1;
         return n * factorial(n - 1);
     }
 
     // Method 5: Find the maximum in an array
     public int findMax(int[] array) {
+        if (array.length == 0) throw new IllegalArgumentException("Array cannot be empty");
         int max = array[0];
         for (int i : array) {
             if (i > max) max = i;
